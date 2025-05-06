@@ -18,20 +18,31 @@
     <button type="submit">Submit Feedback</button>
   </form>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const diet = params.get("diet");
-    const sessionId = params.get("sessionId");
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const dietEncoded = params.get("diet");
+  const sessionId = params.get("sessionId");
 
-    if (diet) {
-      const decoded = decodeURIComponent(atob(diet));
-      document.getElementById("diet-box").textContent = decoded;
+  if (dietEncoded) {
+    try {
+      const decoded = decodeURIComponent(atob(dietEncoded));
+      const dietObj = JSON.parse(decoded);
+
+      // Pretty-print the JSON for visual display
+      document.getElementById("diet-box").textContent = JSON.stringify(dietObj, null, 2);
+
+      // Store the raw JSON string (not the parsed object) in the hidden input for submission
       document.getElementById("dietField").value = decoded;
+    } catch (e) {
+      document.getElementById("diet-box").textContent = "❌ Failed to parse diet JSON.";
+      console.error("Error parsing diet:", e);
     }
+  }
 
-    if (sessionId) {
-      document.getElementById("sessionIdField").value = sessionId;
-    }
-  </script>
+  if (sessionId) {
+    document.getElementById("sessionIdField").value = sessionId;
+  }
+</script>
+
 </body>
 </html>
