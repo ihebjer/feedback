@@ -1,3 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Review Your Diet</title>
+</head>
+<body>
+  <h1>Your Personalized Diet Plan</h1>
+
+  <div>
+    <pre id="diet-box">Loading diet...</pre>
+  </div>
+
+  <h2>Submit Your Feedback</h2>
+  <form action="https://ihebjeridi.app.n8n.cloud/webhook-test/feedback" method="POST">
+    <input type="hidden" name="sessionId" value="" id="sessionIdField" />
+    <input type="hidden" name="diet" value="" id="dietField" />
+    <textarea name="feedbackText" rows="6" cols="60" placeholder="Write your feedback here..." required></textarea><br />
+    <button type="submit">Submit Feedback</button>
+  </form>
+
 <script>
   const params = new URLSearchParams(window.location.search);
   const dietEncoded = params.get("diet");
@@ -26,3 +47,7 @@
     document.getElementById("sessionIdField").value = sessionId;
   }
 </script>
+</body>
+</html>
+
+
