@@ -13,6 +13,7 @@
   <h2>Submit Your Feedback</h2>
   <form action="https://ihebjeridi.app.n8n.cloud/webhook-test/feedback" method="POST">
     <input type="hidden" name="sessionId" value="" id="sessionIdField" />
+    <input type="hidden" name="diet" value="" id="dietField" />
     <textarea name="feedbackText" rows="6" cols="60" placeholder="Write your feedback here..." required></textarea><br />
     <button type="submit">Submit Feedback</button>
   </form>
@@ -25,6 +26,7 @@
     if (diet) {
       const decoded = decodeURIComponent(atob(diet));
       document.getElementById("diet-box").textContent = decoded;
+      document.getElementById("dietField").value = decoded;
     }
 
     if (sessionId) {
