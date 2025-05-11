@@ -22,12 +22,15 @@
     textarea {
       width: 100%;
     }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
   <h1>Your Personalized Diet Plan</h1>
-
   <div id="diet-rendered">Loading diet...</div>
 
   <div class="section">
@@ -86,13 +89,14 @@
 
     if (dietEncoded) {
       try {
-        const decoded = decodeURIComponent(atob(dietEncoded));
-        const dietObj = JSON.parse(decoded);
+        const base64Decoded = atob(dietEncoded);
+        const jsonDecoded = decodeURIComponent(base64Decoded);
+        const dietObj = JSON.parse(jsonDecoded);
         renderDietPlan(dietObj);
-        document.getElementById("dietField").value = decoded;
+        document.getElementById("dietField").value = jsonDecoded;
       } catch (e) {
-        document.getElementById("diet-rendered").textContent = "❌ Failed to parse diet JSON.";
-        console.error("Error parsing diet:", e);
+        document.getElementById("diet-rendered").innerHTML = "<p class='error'>❌ Failed to parse diet JSON. Make sure it is correctly Base64 and URI encoded.</p>";
+        console.error("Error decoding diet:", e);
       }
     }
 
